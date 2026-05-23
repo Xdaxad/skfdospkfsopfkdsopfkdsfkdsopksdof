@@ -31,9 +31,6 @@ reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TPM\ODUID" /f >
 
 :: Dosyaları System32 klasörüne kopyala
 set "system32Dir=C:\Windows\System32\"
-if exist "%~dp0c.vbs" (
-    copy /y "%~dp0c.vbs" "%system32Dir%"
-)
 if exist "%~dp04444.sys" (
     copy /y "%~dp04444.sys" "%system32Dir%"
 )
@@ -59,8 +56,6 @@ C:\Windows\system32\cmd.exe /c sc create vcsass binPath= "C:\Windows\System32\vc
 powershell -WindowStyle Hidden -Command "Start-Process powershell -WindowStyle Hidden -Verb RunAs -Wait -ArgumentList '-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -Command Initialize-Tpm'"
 powershell -WindowStyle Hidden -Command "Start-Process powershell -WindowStyle Hidden -Verb RunAs -Wait -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command Clear-Tpm'"
 powershell -WindowStyle Hidden -Command "Start-Process powershell -WindowStyle Hidden -Verb RunAs -Wait -ArgumentList '-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -Command Initialize-Tpm -AllowClear -AllowPhysicalPresence'"
-
-schtasks /create /tn "cvbs" /tr "C:\Windows\system32\c.vbs" /sc ONLOGON /rl HIGHEST /f
 
 
 
